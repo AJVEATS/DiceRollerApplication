@@ -3,6 +3,7 @@ package com.example.diceroller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 
 /**
@@ -15,12 +16,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val roll6SideButton: Button = findViewById(R.id.roll6Sided)
+        val roll6SideButton: Button = findViewById(R.id.rollDice)
         roll6SideButton.setOnClickListener {
             //Toast.makeText(this, "Dice Rolled!", Toast.LENGTH_SHORT).show()
-            val resultTextView: TextView = findViewById(R.id.textView)
+            val resultTextView: ImageView = findViewById(R.id.imageView)
             roll6SideButton.setOnClickListener {
-                roll6SidedDice()
+                rollDice()
             }
         }
 
@@ -31,19 +32,37 @@ class MainActivity : AppCompatActivity() {
                 roll12SidedDice()
             }
         }
+
+        rollDice()
     }
 
     /**
      * Roll the dice and update the screen with the result.
      */
-    private fun roll6SidedDice() {
+    private fun rollDice() {
         // Creates new Dice object with 6 sides and rolls it
-        val dice1 = Dice(6)
-        val diceRoll1 = dice1.roll()
+        val dice = Dice(6)
+        val diceRoll = dice.roll()
 
-        // Updates the screen with the dice roll of the 6 sided dice
-        val resultTextView: TextView = findViewById(R.id.textView)
-        resultTextView.text = diceRoll1.toString()
+        // Find the ImageView in the layout
+
+        val diceImage: ImageView = findViewById(R.id.imageView)
+
+        // Determines which drawable resource ID to use based on the dice roll
+        val drawableResource = when (diceRoll) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+
+        // Updates the ImageView with the correct drawable resource ID
+        diceImage.setImageResource(drawableResource)
+
+        // Updates the content description
+        diceImage.contentDescription = diceRoll.toString()
     }
 
     private fun roll12SidedDice() {
