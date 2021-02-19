@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 
 /**
  * This activity allows the user to roll a dice and view the result
@@ -17,17 +16,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val roll6SideButton: Button = findViewById(R.id.rollDice)
+        val roll12SideButton: Button = findViewById(R.id.roll12Sided)
+
         roll6SideButton.setOnClickListener {
-            //Toast.makeText(this, "Dice Rolled!", Toast.LENGTH_SHORT).show()
-            val resultTextView: ImageView = findViewById(R.id.imageView)
             roll6SideButton.setOnClickListener {
                 rollDice()
             }
         }
 
-        val roll12SideButton: Button = findViewById(R.id.roll12Sided)
         roll12SideButton.setOnClickListener {
-            val resultTextView: ImageView = findViewById(R.id.imageView)
             roll12SideButton.setOnClickListener {
                 roll12SidedDice()
             }
@@ -37,9 +34,7 @@ class MainActivity : AppCompatActivity() {
         roll12SidedDice()
     }
 
-    /**
-     * Roll the dice and update the screen with the result.
-     */
+    // Roll the dice and update the screen with the result.
     private fun rollDice() {
         // Creates a new Dice object with 6 sides and rolls it
         val dice = Dice(6)
@@ -71,8 +66,8 @@ class MainActivity : AppCompatActivity() {
         val diceRoll = dice2.roll12()
 
         // As the amount of sides on the die is greater than 6 the dies' roll needs to be split between 2 die
-        var diceRoll1 = 0
-        var diceRoll2 = 0
+        var diceRoll1: Int
+        var diceRoll2: Int
 
         // Checks if the roll value is more than 6 to split between the 2 die
         if (diceRoll > 6) {
@@ -113,16 +108,6 @@ class MainActivity : AppCompatActivity() {
         // Updates the content description
         diceImage1.contentDescription = diceRoll.toString()
     }
-
-    /*private fun roll12SidedDice() {
-        // Creates a new Dice object with 12 sides and rolls it
-        val dice2 = Dice(12)
-        val diceRoll2 = dice2.roll()
-
-        //Updates the screen with the dice roll of the 12 sided dice
-        val resultTextView2: TextView = findViewById(R.id.textView2)
-        resultTextView2.text = diceRoll2.toString()
-    }*/
 }
 
 class Dice(private val numSides: Int) {
