@@ -25,16 +25,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        /*val roll12SideButton: Button = findViewById(R.id.roll12Sided)
+        val roll12SideButton: Button = findViewById(R.id.roll12Sided)
         roll12SideButton.setOnClickListener {
-            val resultTextView: TextView = findViewById(R.id.textView2)
+            val resultTextView: ImageView = findViewById(R.id.imageView)
             roll12SideButton.setOnClickListener {
                 roll12SidedDice()
             }
         }
-        */
+
         rollDice()
-        roll12SideDice()
+        roll12SidedDice()
     }
 
     /**
@@ -65,27 +65,22 @@ class MainActivity : AppCompatActivity() {
         diceImage.contentDescription = diceRoll.toString()
     }
 
-    private fun roll12SideDice() {
+    private fun roll12SidedDice() {
         // Creates a new Dice object with 12 sides and rolls it
         val dice2 = Dice(12)
-        val diceRoll = dice2.roll()
+        val diceRoll = dice2.roll12()
 
-        // As sides is larger than 6 the roll needs to be split between 2 die
-        var die1 = 0
-        var die2 = 0
+        // As the amount of sides on the die is greater than 6 the dies' roll needs to be split between 2 die
+        var diceRoll1 = 0
+        var diceRoll2 = 0
 
         // Checks if the roll value is more than 6 to split between the 2 die
         if (diceRoll > 6) {
-            die1 = 6
-            die2 = (diceRoll - 6)
-
+            diceRoll1 = 6
+            diceRoll2 = (diceRoll - 6)
         } else {
-            if(diceRoll == 1) {
-                die1 = diceRoll
-                die2 = 0
-            }
-            die1 = (diceRoll - 1)
-            die2 = 1
+            diceRoll1 = (diceRoll - 1)
+            diceRoll2 = 1
         }
 
         // Finds the ImageView in the layout
@@ -93,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         val diceImage2: ImageView = findViewById(R.id.imageView22)
 
         //Determines which drawable resource ID to be used based on the dice roll
-        val drawableResource1 = when (die1) {
+        val drawableResource1 = when (diceRoll1) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
@@ -102,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             else -> R.drawable.dice_6
         }
 
-        val drawableResource2 = when (die2) {
+        val drawableResource2 = when (diceRoll2) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
@@ -113,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 
         // Updates the ImageView with the correct drawable resource ID
         diceImage1.setImageResource(drawableResource1)
-        diceImage2.setImageResource((drawableResource2))
+        diceImage2.setImageResource(drawableResource2)
 
         // Updates the content description
         diceImage1.contentDescription = diceRoll.toString()
@@ -134,5 +129,9 @@ class Dice(private val numSides: Int) {
 
     fun roll(): Int {
         return (1..numSides).random()
+    }
+
+    fun roll12(): Int {
+        return (2..numSides).random()
     }
 }
