@@ -3,4 +3,6 @@
     <string name="roll">Roll</string>
     <string name="click_the_first_button_to_roll_a_6_sided_dice">Click the first button to roll a 6 sided dice</string>
     <string name="click_the_first_button_to_roll_a_12_sided_dice">Click the first button to roll a 12 sided dice</string>
+    <string name="roll_6_sided">roll 6 sided</string>
+    <string name="roll_12_sided">roll 12 sided</string>
 </resources>
